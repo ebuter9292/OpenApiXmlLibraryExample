@@ -1,0 +1,6 @@
+@OpenApiXmlLibraryExample_HostAddress = http://localhost:5287
+
+GET {{OpenApiXmlLibraryExample_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

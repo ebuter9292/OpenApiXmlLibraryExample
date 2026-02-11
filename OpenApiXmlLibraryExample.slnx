@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="OpenApiHelper/OpenApiHelper.csproj" />
+  <Project Path="OpenApiXmlLibraryExample/OpenApiXmlLibraryExample.csproj" />
+</Solution>
