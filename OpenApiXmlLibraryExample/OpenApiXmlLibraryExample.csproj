@@ -15,7 +15,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\OpenApiHelper\OpenApiHelper.csproj" />
+	  <ProjectReference Include="..\OpenApiHelper\OpenApiHelper.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -11,6 +11,8 @@ public static class ServiceCollectionExtensions
         {
             services.AddOpenApi(apiVersion.ToString(), options =>
             {
+                //options.AddSchemaTransformer(new XmlCommentSchemaTransformer());
+                //options.AddOperationTransformer(new XmlCommentOperationTransformer());
                 options.ShouldInclude = (apiDesc) =>
                 {
                     var endpointVersion = (ApiVersion)apiDesc.Properties[typeof(ApiVersion)];
@@ -22,5 +24,10 @@ public static class ServiceCollectionExtensions
                 };
             });
         }
+    }
+
+    public static void AddBasicOpenApi(this IServiceCollection services)
+    {
+        services.AddOpenApi();
     }
 }
