@@ -7,17 +7,26 @@ builder.Services.AddControllers();
 
 
 bool useVersioning = true;
-bool useExternalOpenApiRegistration = false;
+bool useExternalOpenApiRegistration = true;
+bool useWeirdOpenApiRegistration = false;
 
 
 List<ApiVersion> versions = [new(1, 0), new(2, 0)];
 
 if (useExternalOpenApiRegistration)
 {
-    if (useVersioning)
-        builder.Services.AddCustomisedOpenApi(versions);
+    if (useWeirdOpenApiRegistration)
+    {
+        builder.Services.AddWeirdOpenApi((services, name, options) => services.AddOpenApi(name, options), versions);
+
+    }
     else
-        builder.Services.AddBasicOpenApi();
+    {
+        if (useVersioning)
+            builder.Services.AddCustomisedOpenApi<Program>(versions);
+        else
+            builder.Services.AddBasicOpenApi<Program>();
+    }
 }
 else
 {

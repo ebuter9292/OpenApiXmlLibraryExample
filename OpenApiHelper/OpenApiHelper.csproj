@@ -9,6 +9,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.1" />
+		<PackageReference Include="MartinCostello.OpenApi.Extensions" Version="2.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.2" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.2" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.2" />
