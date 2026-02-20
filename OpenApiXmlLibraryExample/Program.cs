@@ -1,9 +1,11 @@
 using Asp.Versioning;
 using OpenApiHelper;
+using OpenApiXmlLibraryExample;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options => options.JsonSerializerOptions.TypeInfoResolverChain.Add(SerializerContext.Default));
 
 bool useVersioning = true;
 bool useExternalOpenApiRegistration = true;
@@ -13,7 +15,7 @@ List<ApiVersion> versions = [new(1, 0), new(2, 0)];
 if (useExternalOpenApiRegistration)
 {
     if (useVersioning)
-        builder.Services.AddCustomisedOpenApi<Program>(versions);
+        builder.Services.AddCustomisedOpenApi<Program>(versions, SerializerContext.Default);
     else
         builder.Services.AddBasicOpenApi<Program>();
 }

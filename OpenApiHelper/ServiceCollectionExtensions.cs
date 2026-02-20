@@ -1,4 +1,5 @@
-﻿using Asp.Versioning;
+﻿using System.Text.Json.Serialization;
+using Asp.Versioning;
 using MartinCostello.OpenApi;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -6,7 +7,7 @@ namespace OpenApiHelper;
 
 public static class ServiceCollectionExtensions
 {
-    public static void AddCustomisedOpenApi<T>(this IServiceCollection services, List<ApiVersion> versions)
+    public static void AddCustomisedOpenApi<T>(this IServiceCollection services, List<ApiVersion> versions, JsonSerializerContext jsonSerializerContext)
     {
         foreach (ApiVersion apiVersion in versions)
         {
@@ -24,7 +25,8 @@ public static class ServiceCollectionExtensions
             });
             services.AddOpenApiExtensions(apiVersion.ToString(), options =>
             {
-                //options.AddExamples = true;
+                options.SerializationContexts.Add(jsonSerializerContext);
+                options.AddExamples = true;
                 options.AddXmlComments<T>();
             });
         }
