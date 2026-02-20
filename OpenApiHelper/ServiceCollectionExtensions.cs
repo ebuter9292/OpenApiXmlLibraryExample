@@ -1,8 +1,6 @@
 ﻿using Asp.Versioning;
 using MartinCostello.OpenApi;
-using Microsoft.AspNetCore.OpenApi;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace OpenApiHelper;
 
@@ -24,13 +22,12 @@ public static class ServiceCollectionExtensions
                     return false;
                 };
             });
-            services.AddOpenApiExtensions(apiVersion.ToString(), (options) =>
+            services.AddOpenApiExtensions(apiVersion.ToString(), options =>
             {
                 //options.AddExamples = true;
                 options.AddXmlComments<T>();
             });
         }
-
     }
 
     public static void AddBasicOpenApi<T>(this IServiceCollection services)
@@ -41,24 +38,5 @@ public static class ServiceCollectionExtensions
             //options.AddExamples = true;
             options.AddXmlComments<T>();
         });
-    }
-
-    public static void AddWeirdOpenApi(this IServiceCollection services, Action<IServiceCollection, string, Action<OpenApiOptions>> addOpenApiAction, List<ApiVersion> versions)
-    {
-        foreach (ApiVersion apiVersion in versions)
-        {
-            addOpenApiAction.Invoke(services, apiVersion.ToString(), options => new OpenApiOptions
-            {
-                ShouldInclude = (apiDesc) =>
-                {
-                    var endpointVersion = (ApiVersion)apiDesc.Properties[typeof(ApiVersion)];
-                    if (endpointVersion is null)
-                        return true;
-                    if (endpointVersion == apiVersion)
-                        return true;
-                    return false;
-                }
-            });
-        }
     }
 }
